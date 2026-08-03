@@ -1,0 +1,109 @@
+import 'dart:io';
+
+class Student {
+  String name;
+  double grade;
+
+  Student(this.name, this.grade);
+}
+
+void main() {
+  List<Student> students = [];
+  bool running = true;
+
+  while (running) {
+    print('\n--- Student Management System ---');
+    print('1. Add student');
+    print('2. View student list');
+    print('3. Update student');
+    print('4. Delete student');
+    print('5. Class average');
+    print('6. Student with highest grade');
+    print('7. Student with lowest grade');
+    print('8. Exit');
+    stdout.write('Choose an option: ');
+    String? choice = stdin.readLineSync();
+
+    switch (choice) {
+      case '1':
+        stdout.write('Enter student name: ');
+        String? name = stdin.readLineSync();
+        stdout.write('Enter grade: ');
+        double grade = double.parse(stdin.readLineSync()!);
+        students.add(Student(name!, grade));
+        print('Student added successfully!');
+        break;
+
+      case '2':
+        if (students.isEmpty) {
+          print('No students found.');
+        } else {
+          print('\n--- Student List ---');
+          for (int i = 0; i < students.length; i++) {
+            print('${i + 1}. ${students[i].name} - ${students[i].grade}');
+          }
+        }
+        break;
+
+      case '3':
+        stdout.write('Enter student number to update: ');
+        int index = int.parse(stdin.readLineSync()!) - 1;
+        if (index >= 0 && index < students.length) {
+          stdout.write('Enter new name: ');
+          students[index].name = stdin.readLineSync()!;
+          stdout.write('Enter new grade: ');
+          students[index].grade = double.parse(stdin.readLineSync()!);
+          print('Student updated successfully!');
+        } else {
+          print('Invalid student number.');
+        }
+        break;
+
+      case '4':
+        stdout.write('Enter student number to delete: ');
+        int index = int.parse(stdin.readLineSync()!) - 1;
+        if (index >= 0 && index < students.length) {
+          students.removeAt(index);
+          print('Student deleted successfully!');
+        } else {
+          print('Invalid student number.');
+        }
+        break;
+
+      case '5':
+        if (students.isEmpty) {
+          print('No students to calculate average.');
+        } else {
+          double sum = students.fold(0, (prev, s) => prev + s.grade);
+          print('Class average: ${sum / students.length}');
+        }
+        break;
+
+      case '6':
+        if (students.isEmpty) {
+          print('No students found.');
+        } else {
+          Student top = students.reduce((a, b) => a.grade > b.grade ? a : b);
+          print('Highest grade: ${top.name} - ${top.grade}');
+        }
+        break;
+
+      case '7':
+        if (students.isEmpty) {
+          print('No students found.');
+        } else {
+          Student low = students.reduce((a, b) => a.grade < b.grade ? a : b);
+          print('Lowest grade: ${low.name} - ${low.grade}');
+        }
+        break;
+
+      case '8':
+        print('Exiting program...');
+        running = false;
+        break;
+
+      default:
+        print('Invalid choice. Please try again.');
+    }
+  }
+}
