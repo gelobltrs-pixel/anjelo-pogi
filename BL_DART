@@ -1,0 +1,34 @@
+class UserAccount {
+  String username;
+  String email;
+  String _password;
+
+  UserAccount(this.username, this.email, this._password);
+
+  void setPassword(String newPassword) {
+    _password = newPassword;
+  }
+
+  bool checkPassword(String password) {
+    return _password == password;
+  }
+
+  void displayUserInfo() {
+    print("Username: $username");
+    print("Email: $email");
+  }
+}
+
+void main() {
+  UserAccount account =
+      UserAccount("student01", "student01@email.com", "Mobile123");
+
+  account.displayUserInfo();
+
+  print("Correct password: ${account.checkPassword("Mobile123")}");
+  print("Incorrect password: ${account.checkPassword("Wrong123")}");
+
+  account.setPassword("NewPass456");
+
+  print("New password: ${account.checkPassword("NewPass456")}");
+}

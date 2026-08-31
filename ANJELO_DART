@@ -1,0 +1,32 @@
+class Student {
+  String id, name, email;
+  Student(this.id, this.name, this.email);
+  void displayStudent() => print("$id | $name | $email");
+  void enrollCourse(Course c) => c.displayCourse();
+}
+
+class Course {
+  String code, name;
+  int units;
+  Course(this.code, this.name, this.units);
+  void displayCourse() => print("$code | $name | $units units");
+}
+
+class MobileApp {
+  String appName, version;
+  MobileApp(this.appName, this.version);
+  void displayAppInfo() => print("$appName - $version");
+}
+
+void main() {
+  var s = Student("2026-001", "Juan", "juan@email.com");
+  var c = Course("BSIT101", "Programming", 3);
+  var app = MobileApp("Student Portal", "1.0");
+
+  print("===== STUDENT MOBILE APP =====");
+  app.displayAppInfo();
+  print("\nStudent Information:");
+  s.displayStudent();
+  print("\nCourse:");
+  s.enrollCourse(c);
+}
